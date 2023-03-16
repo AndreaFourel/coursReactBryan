@@ -6,22 +6,18 @@ import TextField from "./Forms/TextField";
 
 function TaskForm({ isTimerStarted, onSubmit }) {
 
-  const [titleValue, setTitleValue] = useState('');
-  const [descriptionValue, setDescriptionValue] = useState('');
+  const initialFormValue = {
+    title : '',
+    description: '',
+  }
+
+  const [formValue, setFormValue] = useState(initialFormValue)
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    // console.log({
-    //   titleValue,
-    //   descriptionValue,
-    // });
-    onSubmit({
-      title: titleValue,
-      description : descriptionValue,
-    });
+    onSubmit(formValue);
     if(isTimerStarted) {
-      setTitleValue('');
-      setDescriptionValue('');
+      setFormValue(initialFormValue);
     }
   }
 
@@ -30,14 +26,14 @@ function TaskForm({ isTimerStarted, onSubmit }) {
       <TextField 
         placeholder='Titre de votre têche' 
         labelTitle='Titre' 
-        value={ titleValue }
-        onChange={ setTitleValue }
+        value={ formValue.title }
+        onChange={(v) => setFormValue({...formValue, title:v}) }
       />
       <TextareaField 
         placeholder='Ecrivez votre description ici...' 
         labelTitle='Description' 
-        value={ descriptionValue }
-        onChange={ setDescriptionValue }
+        value={ formValue.description }
+        onChange={(v) => setFormValue({...formValue, description:v}) }
       />
       <Button type='submit' isTimerStarted={ isTimerStarted } />
     </form>

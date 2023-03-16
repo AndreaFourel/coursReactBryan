@@ -22,20 +22,6 @@ function Timer(props) {
     }
   }
 
-  // const displayParagraph = useMemo(() => {
-  //   return (
-  //     <p>
-  //     {console.log('RENDER >>> P')}
-  //     {isTimerStarted ? 'Le timer est démarré' : 'Le timer est arrêté'}
-  //   </p>
-  //   )
-  // }, [ isTimerStarted ]);
-
-
-  // const handleClick = () => {
-  //   alert('Hey yall!');
-  // }
-
   return (
     <>
       <ClockDisplay 

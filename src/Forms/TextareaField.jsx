@@ -1,15 +1,24 @@
-import { useId, useRef } from "react";
+import { useId } from "react";
 import style from "../TaskForm.module.css";
 
-function TextareaField({placeholder, labelTitle}) {
+function TextareaField({placeholder, labelTitle, value, onChange}) {
 
   const id = useId();
-  const input = useRef(null);
+
+  const handleChange = (event) => {
+    onChange(event.target.value)
+  }
 
   return(
     <div className={style['input-group']}>
       <label htmlFor={ id }>{labelTitle}</label>
-      <textarea ref={ input } id={ id } rows="5" placeholder={ placeholder } className={style.input}></textarea>
+      <textarea 
+        id={ id } rows="5" 
+        placeholder={ placeholder } 
+        className={style.input} 
+        value={value} 
+        onChange={ handleChange}
+      ></textarea>
     </div>
   );
 }

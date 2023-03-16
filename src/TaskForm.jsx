@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useState } from "react";
 import Button from "./Button";
 import TextareaField from "./Forms/TextareaField";
 import TextField from "./Forms/TextField";
@@ -6,31 +6,39 @@ import TextField from "./Forms/TextField";
 
 function TaskForm({ isTimerStarted, onSubmit }) {
 
-  const titleInput = useRef(null);
-  const descriptionInput = useRef(null);
-
-  useEffect(() => {
-    titleInput.current.focus();
-    titleInput.current.setDefaultValue('hey!')
-  }, [])
+  const [titleValue, setTitleValue] = useState('');
+  const [descriptionValue, setDescriptionValue] = useState('');
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    console.log(titleInput.current.value);
-    // onSubmit({
-    //   title: titleInput.current.value,
-    //   description : descriptionInput.current.value,
+    // console.log({
+    //   titleValue,
+    //   descriptionValue,
     // });
-    // if(isTimerStarted) {
-    //   titleInput.current.value = null;
-    //   descriptionInput.current.value = null;
-    // }
+    onSubmit({
+      title: titleValue,
+      description : descriptionValue,
+    });
+    if(isTimerStarted) {
+      setTitleValue('');
+      setDescriptionValue('');
+    }
   }
 
   return (
     <form onSubmit={ handleSubmitForm } >
-      <TextField placeholder='Titre de votre têche' labelTitle='Titre' ref={ titleInput }/>
-      <TextareaField placeholder='Ecrivez votre description ici...' labelTitle='Description' />
+      <TextField 
+        placeholder='Titre de votre têche' 
+        labelTitle='Titre' 
+        value={ titleValue }
+        onChange={ setTitleValue }
+      />
+      <TextareaField 
+        placeholder='Ecrivez votre description ici...' 
+        labelTitle='Description' 
+        value={ descriptionValue }
+        onChange={ setDescriptionValue }
+      />
       <Button type='submit' isTimerStarted={ isTimerStarted } />
     </form>
   );

@@ -7,9 +7,9 @@ function App() {
 
   const [timers, setTimers] = useState([])
 
-  const saveTime = (time) => {
+  const saveTime = (time, title, description) => {
     const date = new Date();
-    setTimers([...timers, {time, date}]);
+    setTimers([...timers, {time, date, title, description}]);
   }
 
   return (

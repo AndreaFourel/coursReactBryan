@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.input {
+  padding: .5rem .8rem;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+}

@@ -5,10 +5,12 @@ import style from './TimersTable.module.css';
 
 function TimersTable() {
 
-  const { tasks, removeTask } = useContext(TasksContext);
+  const { tasksData, removeTask } = useContext(TasksContext);
 
   return(
-    <table className={ style['timers-table'] }>
+    <>
+      <h3>{tasksData.count} Task{tasksData.count > 1 ? 's' : ''} registered</h3>
+      <table className={ style['timers-table'] }>
         <thead>
           <tr>
             <th>Date</th>
@@ -20,7 +22,7 @@ function TimersTable() {
         </thead>
         <tbody>
           {
-            tasks.map((timer, index)=>(
+            tasksData.tasks.map((timer, index)=>(
               <tr key={ timer.date.getMilliseconds() - index }>
                 <td>{ timer.date.toLocaleDateString() } at { timer.date.toLocaleTimeString() }</td>
                 <td>{timer.title}</td>
@@ -35,6 +37,7 @@ function TimersTable() {
           }
         </tbody>
       </table>
+    </>
   );
 }
 

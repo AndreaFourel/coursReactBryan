@@ -1,30 +1,61 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
 const TasksContext = createContext({
-  tasks: [],
+  tasksData: {
+    tasks: [],
+    count: 0,
+  },
   addTask: () => {},
   removeTask: () => {},
 });
 
 export { TasksContext };
 
+const INITIAL_TASKS = {
+  tasks: [],
+  count: 0,
+};
+
+const tasksReducer = (state, action) => {
+  if (action.type === 'ADD_TASK' && action.value) {
+    const tasks = [...state.tasks, action.value];
+    return {
+      tasks,
+      count: tasks.length,
+    };
+  }
+  if (action.type === 'REMOVE_TASK' && !isNaN(+action.value)) {
+    const tasks = [...state.tasks];
+    tasks.splice(+action.value, 1);
+    return{
+      tasks,
+      count: tasks.length,
+    };
+  }
+  return state ? state : INITIAL_TASKS;
+}
+
 const TasksContextProvider = ({ children }) => {
 
-  const [tasks, setTasks] = useState([]);
+    const[tasksData, dispatchTasks] = useReducer(tasksReducer, INITIAL_TASKS);
 
   const addTask = (task) => {
-    setTasks([...tasks, task])
+    dispatchTasks({
+      type: 'ADD_TASK',
+      value: task,
+    });
   }
 
-  const removeTask =  (taskTndex) => {
-    const tasksArr = [...tasks];
-    tasksArr.splice(taskTndex, 1);
-    setTasks(tasksArr);
+  const removeTask = (taskIndex) => {
+    dispatchTasks({
+      type: 'REMOVE_TASK',
+      value: taskIndex,
+    });
   }
 
 
   const value = {
-    tasks,
+    tasksData,
     addTask,
     removeTask,
   };

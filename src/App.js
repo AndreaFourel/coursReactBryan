@@ -1,22 +1,19 @@
 import Timer from './Timer';
 import TimersTable from './TimersTable';
 import style from './App.module.css';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/Theme';
 
 function App() {
 
-  const [timers, setTimers] = useState([])
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const saveTime = (time, title, description) => {
-    const date = new Date();
-    setTimers([...timers, {time, date, title, description}]);
-  }
-
-  return (
-    <div className={style.container}>
+    return (
+    <div className={`${style.container} ${style[theme]}`}>
         <h1 className={style['main-title']}>Pomodoro Timer</h1>
-        <Timer saveTime={saveTime}/>
-        <TimersTable timers={timers} />
+        <button onClick={ toggleTheme }>Toggle to {theme === 'light' ? 'dark' : 'light'}</button>
+        <Timer/>
+        <TimersTable />
       </div>
   );
 

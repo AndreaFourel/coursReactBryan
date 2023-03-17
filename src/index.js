@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ThemeContextProvider from './contexts/Theme';
+import TaskContextProvider from './contexts/Tasks';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   //<React.StrictMode>
-    <App />
+    <ThemeContextProvider>
+      <TaskContextProvider>
+      <App />
+      </TaskContextProvider>
+    </ThemeContextProvider>
   //</React.StrictMode>
 );
 

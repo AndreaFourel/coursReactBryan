@@ -1,6 +1,5 @@
 .container {
   padding: 3rem;
-  background-color: beige;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,4 +10,14 @@
   font-weight: 600;
   font-size: 3rem;
   color: tomato;
+}
+
+.dark {
+  background-color: black;
+  color: beige;
+}
+
+.light {
+  background-color: beige;
+  color: black;
 }

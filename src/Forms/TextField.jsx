@@ -1,7 +1,7 @@
 import { useId} from "react";
 import style from "../TaskForm.module.css";
 
-function TextField({placeholder, labelTitle, value, onChange}) {
+function TextField({placeholder, labelTitle, value, onChange, error, name}) {
 
   const id = useId();
   const handleChange = (event) => {
@@ -19,6 +19,7 @@ function TextField({placeholder, labelTitle, value, onChange}) {
         value={value} 
         onChange={ handleChange }
       />
+      {error && error.field === name && <p style={{color: 'red'}}>{error.message}</p>}
     </div>
 
   );

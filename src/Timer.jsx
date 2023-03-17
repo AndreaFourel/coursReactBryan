@@ -1,20 +1,28 @@
 import ClockDisplay from './ClockDisplay';
 import style from './Timer.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import TimerText from './TimerText';
 import useTimer from './hooks/useTimer';
 import TaskForm from './TaskForm';
+import { TasksContext } from './contexts/Tasks';
 
 
-function Timer(props) {
+function Timer() {
 
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const { time, startTimer, stopTimer } = useTimer();
   
+  const { addTask } = useContext(TasksContext);
+
   const handleStartTimer = ({title, description}) => {
     if(isTimerStarted) {
       const savedTime = stopTimer();
-      props.saveTime(savedTime, title, description);
+      addTask({
+        time: savedTime, 
+        date: new Date(), 
+        title, 
+        description,
+      });
       setIsTimerStarted(false);    
     } else {
       setIsTimerStarted(true);
@@ -29,8 +37,6 @@ function Timer(props) {
         className={style['clock-timer']}
       />
       <TaskForm isTimerStarted={ isTimerStarted } onSubmit={handleStartTimer}/>
-      {/** {displayParagraph}*/}
-      {/**on peut utiliser memo sur des composant également */}
       <TimerText isTimeStarted={ isTimerStarted }/>
     </>
   )

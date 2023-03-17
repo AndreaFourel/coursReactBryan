@@ -28,15 +28,26 @@ function TaskForm({ isTimerStarted, onSubmit }) {
   }
 
   const handleInputChange = (field, value) => {
+
+    setFormValue({...formValue, [field]: value})
+
     if(field === 'title' && (!value || value.length < 4)){
       setError({
         field,
         message: 'Title must have at least 4 sharacters',
       });
-    } else {
-      setError(null);
+      return;
+    } 
+    if(field === 'description' && value && value.length > 10) {
+      setError({
+        field,
+        message: 'Decription must have less thn 10characters',
+      });
+      return;
     }
-    setFormValue({...formValue, [field]: value})
+
+    setError(null);
+    
   }
 
   return (
@@ -46,13 +57,16 @@ function TaskForm({ isTimerStarted, onSubmit }) {
         labelTitle='Titre' 
         value={ formValue.title }
         onChange={(v) => handleInputChange('title', v) }
+        name='title'
+        error={error}
       />
-      {error && error.field === 'title' && <p style={{color: 'red'}}>{error.message}</p>}
       <TextareaField 
         placeholder='Ecrivez votre description ici...' 
         labelTitle='Description' 
         value={ formValue.description }
         onChange={(v) => handleInputChange('description', v) }
+        name='description'
+        error={error}
       />
       <Button type='submit' isTimerStarted={ isTimerStarted } />
     </form>
